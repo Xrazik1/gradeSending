@@ -1,0 +1,142 @@
+@charset 'utf-8';
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+
+$main_bg_color: #007F57;
+$first_main_font: 'Caveat', cursive;
+$second_main_font: 'Ubuntu Mono', sans-serif;
+$font_main_color: #EEEEEE;
+
+@mixin transition($property, $duration, $timing-fun){
+	 transition: $property $duration $timing-fun;
+	-moz-transition: $property $duration $timing-fun;
+	-webkit-transition: $property $duration $timing-fun;
+	-o-transition: $property $duration $timing-fun;
+}
+
+
+
+*{
+	margin: 0;
+	padding: 0;
+}
+
+html, body {
+	font-size: 1em;
+	font-family: $first_main_font;
+	background-color: $main_bg_color;
+	color: $font_main_color;
+}
+
+body{
+	height: 200px;
+	width: 100%;
+	
+}
+
+a{
+	text-decoration: none;
+	color: $font_main_color;
+
+	&:hover{
+		cursor: pointer;
+	}
+}
+
+
+content{
+	height: 100px;
+	text-align: center;
+	
+	margin-top: 350px;
+
+}
+
+
+/* Footer */
+
+footer{
+	height: 20px;
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	margin-bottom: -330px;
+	padding-bottom: 50px;
+}
+
+/* Rights */
+
+.rights{
+	position: absolute;
+	float: left;
+	font-size: 1.6em;
+	margin-left: 5%;
+}
+
+
+/* Header */
+
+header{
+	background-color: red;
+	height: 50%;
+	
+	.exit{
+		float: left;
+		margin-top: 50px;
+		margin-left: 50px;
+		font-size: 1.7em;
+	}
+	.userName{
+		float: right;
+		margin-top: 50px;
+		margin-right: 50px;
+		font-size: 1.7em;
+	}
+}
+
+
+
+
+
+.wrapper{
+	width: 100%;
+	height: 100%;
+	position: relative;
+
+}
+
+
+/* Aboutus_thirdSlide */
+
+.sendFormContainer{
+	margin-top: 300px;
+	text-align: center;
+	width: 500px;
+	padding: 10px;
+	font-size: 1.9em;
+	border-radius: 10px;
+	margin: 400px auto;
+
+
+	.loadFilesBtn{
+		
+	}
+}
+
+
+
+.clear{
+	clear: both;
+	width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
