@@ -1,4 +1,5 @@
 import React from 'react';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 class Header extends React.Component{
     constructor(props){
@@ -6,6 +7,11 @@ class Header extends React.Component{
 
     }
 
+    onExit = () => {
+
+        this.props.showAuthForm();
+        NotificationManager.info('Произведён выход из аккаунта');
+    }
 
     render = () => {
         let greeting;
@@ -16,7 +22,7 @@ class Header extends React.Component{
         }
 
         if(this.props.exitBtnVisibility){
-           exitBtn =  <span className="exitBtn" onClick={ () => this.props.onExit() }>Выйти</span>
+           exitBtn =  <span className="exitBtn" onClick={ () => this.onExit() }>Выйти</span>
         }
 
         return (

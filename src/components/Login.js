@@ -19,7 +19,8 @@ class AuthForm extends React.Component{
 
     validateForm = () => {
         if(this.state.password == "0000"){
-            this.props.onSuccessAuth();
+            this.props.showLoadForm();
+            NotificationManager.success("Вы успешно авторизовались");
         }else{
             NotificationManager.error("Вы ввели неверный пароль", 'Click me', 5000, () => {});
 

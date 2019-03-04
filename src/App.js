@@ -3,7 +3,7 @@ import Header from './components/Header.js';
 import Content from './components/Content.js';
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
-import './App.scss';
+import './assets/App.scss';
 
 class App extends Component {
   constructor(){
@@ -13,32 +13,42 @@ class App extends Component {
       
       greetingVisibility: false,
       exitBtnVisibility: false,
-      showAuthForm: true,
-      showLoadTable: false
+      authFormVisibility: true,
+      loadTableVisibility: false,
+      gradesTableVisibility: false,
     }
   }
 
-  onSuccessAuth (){
+  showLoadForm (){
     this.setState({ 
       greetingVisibility: true, 
       exitBtnVisibility: true, 
-      showAuthForm: false,
-      showLoadTable: true
+      authFormVisibility: false,
+      loadTableVisibility: true
     });
-    this.render()
-    NotificationManager.success("Вы успешно авторизовались");
+    this.render();
 
   }
 
-  onExit () {
+  showGradesTable(){
+    this.setState({ 
+      gradesTableVisibility: true,
+      loadTableVisibility: false
+    });
+
+    this.render();
+  }
+
+  showAuthForm () {
     this.setState({ 
       greetingVisibility: false, 
       exitBtnVisibility: false, 
-      showAuthForm: true,
-      showLoadTable: false
+      authFormVisibility: true,
+      loadTableVisibility: false,
+      gradesTableVisibility: false
     });
-    this.render()
-    NotificationManager.info('Произведён выход из аккаунта');
+    this.render();
+
 
   }
 
@@ -49,17 +59,16 @@ class App extends Component {
         <Header name="Елена" 
                 greetingVisibility = { this.state.greetingVisibility } 
                 exitBtnVisibility = { this.state.exitBtnVisibility } 
-                onExit = { this.onExit.bind(this) }></Header>
+                showAuthForm = { this.showAuthForm.bind(this) }></Header>
 
         <Content type={ this.state.content } 
-                onSuccessAuth = { this.onSuccessAuth.bind(this) }
-                showAuthForm={ this.state.showAuthForm }
-                showLoadTable = { this.state.showLoadTable }
+                showLoadForm = { this.showLoadForm.bind(this) }
+                showGradesTable = { this.showGradesTable.bind(this) }
+                authFormVisibility={ this.state.authFormVisibility }
+                loadTableVisibility = { this.state.loadTableVisibility }
+                gradesTableVisibility = { this.state.gradesTableVisibility }
                   >  
         </Content>
-
-
-
 
 
         <div className="clear"></div>
