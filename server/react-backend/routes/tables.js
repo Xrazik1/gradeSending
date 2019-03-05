@@ -10,9 +10,6 @@ router.use(function(req, res, next) {
   next();
 });
 
-router.get('/', function(req, res, next) {
- 
-});
 
 router.post('/', function(req, res, next) {
  res.end('200 OK');

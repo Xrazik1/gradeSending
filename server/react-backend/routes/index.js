@@ -1,9 +1,21 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const path = require("path");
+
+const options = {
+  root: __dirname + '/../src',
+  dotfiles: 'deny'
+};
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/', (req, res) => {
+  res.sendFile("index.html", options);
 });
+
+router.get('/bundle.js', (req, res) => {
+  res.sendfile('bundle.js', options);
+});
+
+
 
 module.exports = router;
