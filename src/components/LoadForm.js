@@ -4,6 +4,7 @@ import 'filepond/dist/filepond.min.css';
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import {excel2json} from 'js2excel';
+import os from "os";
 
 
 class LoadForm extends React.Component{
@@ -11,7 +12,7 @@ class LoadForm extends React.Component{
         super(props);
         
         this.serverConfig ={
-           url:"http://localhost:3007",
+           url:`http://${os.hostname()}:3007`,
            process:{
                url: '/tables',
                method: "POST",
