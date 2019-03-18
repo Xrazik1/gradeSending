@@ -65,7 +65,7 @@ class Content extends React.Component{
                 <Zoom when={this.props.gradesTableVisibility} 
                       unmountOnExit={ true } 
                       mountOnEnter = { true } >
-                    <GradesTable tableJsonData = { this.state.tableJsonData }></GradesTable>
+                    <GradesTable tableJsonData = { this.state.tableJsonData } showLoadForm = { () => { this.props.showLoadForm() } }></GradesTable>
                 </Zoom>
             </content>
         )

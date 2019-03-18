@@ -24,7 +24,8 @@ class App extends Component {
       greetingVisibility: true, 
       exitBtnVisibility: true, 
       authFormVisibility: false,
-      loadTableVisibility: true
+      loadTableVisibility: true,
+      gradesTableVisibility: false,
     });
     this.render();
 
