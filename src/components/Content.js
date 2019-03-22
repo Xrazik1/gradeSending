@@ -4,6 +4,7 @@ import AuthForm from './Login.js';
 import Zoom from 'react-reveal/Zoom';
 import HeadShake from 'react-reveal/HeadShake';
 import GradesTable from './GradesTable.js';
+import Instruction from './Instruction';
 
 class Content extends React.Component{
     constructor(props){
@@ -13,6 +14,7 @@ class Content extends React.Component{
             loadTableVisibility: this.props.loadTableVisibility,
             authFormVisibility: this.props.authFormVisibility,
             gradesTableVisibility: this.props.gradesTableVisibility,
+            instructionsVisibility : false,
             tableJsonData: null,
             authError: false
         }
@@ -39,7 +41,11 @@ class Content extends React.Component{
         this.render()
         
     }
-    
+
+    toggleInstructions = () => {
+        this.setState({ "instructionsVisibility" : !this.state.instructionsVisibility })
+        console.log(this)
+    }
 
     render = () => { 
 
@@ -53,7 +59,8 @@ class Content extends React.Component{
                                   onAuthError={ this.onAuthError.bind(this) } ></AuthForm>
                     </HeadShake>
                 </Zoom>
-                <Zoom when={this.props.loadTableVisibility} 
+                <Zoom  
+                      when={this.props.loadTableVisibility} 
                       unmountOnExit={ true } 
                       mountOnEnter = { true }>
                     <LoadForm loadTableVisibility={ this.props.loadTableVisibility } 
@@ -61,6 +68,10 @@ class Content extends React.Component{
                               showGradesTable = { () => this.props.showGradesTable() }
                               setJsonData={ this.setJsonData.bind(this) }
                               ></LoadForm>
+                    <Instruction 
+                        toggleInstructions = { this.toggleInstructions } 
+                        instructionsVisibility = { this.state.instructionsVisibility }>
+                    </Instruction>
                 </Zoom>
                 <Zoom when={this.props.gradesTableVisibility} 
                       unmountOnExit={ true } 

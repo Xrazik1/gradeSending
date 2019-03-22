@@ -77,6 +77,9 @@ class App extends Component {
           <div className="rights">
             © 2018 All rights reserved
           </div>
+          <div className="author">
+            Production and development by <a href="https://vk.com/id173283033">Nikolay Savelev</a>
+          </div>
         </footer>
       </div>
     );

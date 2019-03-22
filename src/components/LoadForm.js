@@ -19,8 +19,8 @@ class LoadForm extends React.Component{
                withCredentials: false,
                headers: {},
                timeout: 7000,
-               onload: null,
-               onerror: null,
+               onload: this.onSuccessLoad,
+               onerror: this.onServerError,
                ondata: null
            }
         }
@@ -36,7 +36,7 @@ class LoadForm extends React.Component{
     }
 
     onServerError = () => {
-        console.log("Возникла ошибка при загрузке файла")
+        NotificationManager.error('Ошибка при загрузке файла на сервер (404)');
     }
 
     onServerSuccess = () => {
@@ -83,7 +83,6 @@ class LoadForm extends React.Component{
                           labelIdle="Кликните или перетащите таблицу"
                           files={this.state.files}
                           server={ this.serverConfig }
-                          onprocessfile={ () => this.onSuccessLoad() }
                           onaddfile={(error, file) => this.onFileInit(error, file) }
                           onupdatefiles={(fileItems) => {
                               // Set current file objects to this.state
