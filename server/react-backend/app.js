@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var tablesRouter = require('./routes/tables');
+var sendMail = require('./routes/sendMail');
 
 var app = express();
 
@@ -21,6 +22,7 @@ app.use(express.static(path.join(__dirname, 'src')));
 
 app.use('/', indexRouter);
 app.use('/tables', tablesRouter);
+app.use('/sendMail', sendMail)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

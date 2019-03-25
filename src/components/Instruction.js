@@ -1,5 +1,5 @@
 import React from 'react';
-import Zoom from 'react-reveal/Zoom';
+import Fade from 'react-reveal/Fade';
 
 class Instruction extends React.Component{
     constructor(props){
@@ -13,7 +13,7 @@ class Instruction extends React.Component{
         let instructions;
 
             instructions =  
-                <Zoom cascade top
+                <Fade cascade top
                       when={this.props.instructionsVisibility}
                       unmountOnExit={ true } 
                       mountOnEnter = { true }
@@ -22,7 +22,7 @@ class Instruction extends React.Component{
                     <div className = "instructions">
                         <ul>
                             <li>1. Принимаются таблицы форматов .xls, .xslx</li>
-                            <li>2. Почта, на которую должны отправляться оценки студента, должна находиться в последнем столбце таблицы.</li>
+                            <li>2. Почта, на которую должны отправляться оценки студента, должна находиться в последнем столбце таблицы и иметь имя ("Email", "email", "Почта" или "почта")</li>
                             <li>3. При наличии в файле таблицы нескольких листов, будет загружен самый первый лист.</li>
                             <li>4. Гарантируется исправная работа программы только при устойчивом подключении к интернету</li>
                             <li>5. Нарушение структуры таблицы, представленной ниже, может привести к критическим ошибкам, нарушать её крайне не рекомендуется</li>
@@ -35,7 +35,7 @@ class Instruction extends React.Component{
 
                         <h2>По всем вопросам обращайтесь в телеграм <a href="http://tele.gg/mikolasav">@mikolasav</a></h2>
                     </div>
-                </Zoom>
+                </Fade>
 
 
         
