@@ -5,6 +5,7 @@ import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import {excel2json} from 'js2excel';
 import os from "os";
+const _ = require('lodash');
 
 
 class LoadForm extends React.Component{
@@ -67,7 +68,25 @@ class LoadForm extends React.Component{
     
             excel2json(table, (data) => {
                 let keys = Object.keys(data);
-                this.props.setJsonData(data[keys[0]]);
+                data = data[keys[0]];
+
+                let empty = 0;
+
+                for (let prop in data){
+                    for(let row in data[prop]){
+                        if(data[prop][row] == ""){
+                            empty += 1;
+                        }
+                    }
+                    if(empty >= 2){
+                        delete data[prop];
+                    }else{
+                        continue;
+                    }
+                }
+                console.log(data)
+
+                this.props.setJsonData(data);
             });        
             
         }else{
