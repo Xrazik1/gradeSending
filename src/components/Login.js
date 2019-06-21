@@ -13,6 +13,18 @@ class AuthForm extends React.Component{
         }
     }
 
+    componentDidMount = () => {
+        this.props.loadingIcon().hide()
+    }
+
+
+    handleKeyPress = (event) => {
+        if(event.key == 'Enter'){
+          event.preventDefault();
+          this.validateForm()
+        }
+    }
+
     getInitialState = () => {
         return { password: '' };
     }
@@ -20,9 +32,8 @@ class AuthForm extends React.Component{
     validateForm = () => {
         if(this.state.password == "0000"){
             this.props.showLoadForm();
-            NotificationManager.success("Вы успешно авторизовались");
         }else{
-            NotificationManager.error("Вы ввели неверный пароль", 'Click me', 5000, () => {});
+            NotificationManager.error("Вы ввели неверный пароль", 'Error', 5000, () => {});
 
             this.props.onAuthError();
         }
@@ -37,7 +48,7 @@ class AuthForm extends React.Component{
             <form className="AuthForm">
 
                 <h1>Введите свой пароль для входа</h1>
-                <input type="password" className="AuthFormPassword" onChange={ this.handleChange }></input>
+                <input type="password" className="AuthFormPassword" onChange={ this.handleChange } onKeyPress={this.handleKeyPress}></input>
                 <input type="button" className="AuthFormSubmit" value="Войти" onClick={ this.validateForm  }></input>
             </form>
         );

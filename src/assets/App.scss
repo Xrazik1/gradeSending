@@ -1,11 +1,12 @@
 @charset 'utf-8';
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 @import url('https://fonts.googleapis.com/css?family=Caveat|Ubuntu+Mono:400,700');
+@import url('https://fonts.googleapis.com/css?family=PT+Sans&display=swap');
 
 
 
 $main_bg_color: #007F57;
-$first_main_font: 'Caveat', cursive;
+$first_main_font: 'PT Sans', cursive;
 $second_main_font: 'Ubuntu Mono', sans-serif;
 $font_main_color: #EEEEEE;
 
@@ -17,15 +18,15 @@ $font_main_color: #EEEEEE;
 }
 
 
-
 *{
 	margin: 0;
 	padding: 0;
 }
 
 html, body {
-	font-size: 1.1em;
+	font-size: 1em;
 	font-family: $first_main_font;
+
 	background-color: $main_bg_color;
 	color: $font_main_color;
 }
@@ -81,6 +82,8 @@ footer{
 	left: 0;
 	margin-bottom: -930px;
 	padding-bottom: 50px;
+
+
 }
 
 /* Rights */
@@ -185,11 +188,11 @@ header{
 	font-family: $first_main_font;
 	font-size: 1.3em;
 	border: 3px solid white;
-	width: 30%;
+	width: 35%;
 	padding: 30px;
 	border-radius: 15px;
-	margin-left: 33%;
-	margin-right: 33%;
+	margin-left: 31%;
+	margin-right: 31%;
 
 	.AuthFormPassword{
 		height: 30px;
@@ -462,3 +465,90 @@ tr:last-child td.last {
 
 
 }
+
+
+/* Loading icon */
+
+
+$green: #008744;
+$blue: #0057e7;
+$red: #d62d20;
+$yellow: #ffa700;
+$white: #eee;
+
+// scaling... any units
+$width: 60px;
+
+.loader {
+  position: absolute;
+  right: 320px;
+  top:40px;
+  width: $width;
+  &:before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+}
+
+.circular {
+  animation: rotate 2s linear infinite;
+  height: 100%;
+  transform-origin: center center;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.path {
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+  stroke-linecap: round;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}
+
+@keyframes color {
+  100%,
+  0% {
+    stroke: $red;
+  }
+  40% {
+    stroke: $blue;
+  }
+  66% {
+    stroke: $green;
+  }
+  80%,
+  90% {
+    stroke: $yellow;
+  }
+}
+
+// demo-specific
+
+

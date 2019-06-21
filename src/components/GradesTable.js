@@ -10,10 +10,18 @@ class GradesTable extends React.Component{
     constructor(props){
         super(props);
 
+        
+
         this.state = {
-            tableJsonData : this.props.tableJsonData
+            tableJsonData: this.props.jsonTables[0],
+            tableJsonDataShort: this.props.jsonTables[1]
         }
     }
+
+    componentDidMount = () => {
+        this.props.loadingIcon().hide()
+    }
+
 
     onBack = () => {
         this.props.showLoadForm();
@@ -23,24 +31,14 @@ class GradesTable extends React.Component{
 
     onSubmitGrades = () => {
 
-        let trimObj = (obj) => {
-            if (!Array.isArray(obj) && typeof obj != 'object') return obj;
-            return Object.keys(obj).reduce(function(acc, key) {
-              acc[key.trim()] = typeof obj[key] == 'string'? obj[key].trim() : trimObj(obj[key]);
-              return acc;
-            }, Array.isArray(obj)? []:{});
-        }
-        // axios.get(`http://${os.hostname()}:3007/sendMail`)
-        // .then(res => {
-        //   console.log(res)
-        // });
-        let grades = trimObj(this.state.tableJsonData);
+        let grades = this.state.tableJsonData;
+        console.log(grades)
 
         for (let student in grades){
             let email = "";
             let name = "";
             let letterText = ``;
-
+  
             for (let row in grades[student]){
 
                 if(row == "ФИО"){
@@ -71,7 +69,7 @@ class GradesTable extends React.Component{
                     }
                 })
                 .then((response) => {
-                    console.log(response);
+                    console.log(response)
                 })
                 .catch((error) => {
                     console.log(error);
@@ -95,7 +93,7 @@ class GradesTable extends React.Component{
                     { sendBtn }
                 </div>
 
-                <JsonTable rows = {this.state.tableJsonData} />
+                <JsonTable rows = {this.state.tableJsonDataShort } />
             </div>
         );
     }

@@ -30,8 +30,12 @@ class LoadForm extends React.Component{
         };
     }
 
+    componentDidMount = () => {
+        this.props.loadingIcon().hide()
+    }
+
+
     onSuccessLoad = () => {
-        NotificationManager.success('Файл успешно загружен');
 
         this.props.showGradesTable();
     }
@@ -40,19 +44,18 @@ class LoadForm extends React.Component{
         NotificationManager.error('Ошибка при загрузке файла на сервер (404)');
     }
 
-    onServerSuccess = () => {
-        console.log("Файл успешно загружен")
-    }
 
     onFileInit = (error, file) => {
+        this.props.loadingIcon().show()
         if (error){
-            NotificationManager.error(error, 'Click me!', 5000, () => {});
+            this.props.loadingIcon().hide()
+            NotificationManager.error(error, 'Error!', 5000, () => {});
         }else{
-            NotificationManager.info('Файл начал загрузку');
             try{
                 this.XLSXHandler(this.state.files);
             }catch(error){
-                NotificationManager.error(error.message, 'Click me!', 5000, () => {});
+                this.props.loadingIcon().hide()
+                NotificationManager.error(error.message, 'Error!', 5000, () => {});
                 this.pond.removeFiles();
             }
             this.pond.processFiles();
@@ -61,20 +64,46 @@ class LoadForm extends React.Component{
 
     XLSXHandler = (table) => {
         let fileName = table[0].name;
-        
         let fileExtension = (fileName.split('.'))[1];
+        let emails = ["Почта", "почта", "Email", "email"]
+
+
+        let shortKeys = function(obj)  {
+            for (let prop in obj){
+                for(let row in obj[prop]){
+                    if ((row.length > 3) && !(emails.includes(row))) {
+                        Object.defineProperty(obj[prop], row.substr(0,3),
+                            Object.getOwnPropertyDescriptor(obj[prop], row));
+                        delete obj[prop][row];
+                    }
+                }
+            }
+
+            return obj;
+        }
+
+        let trimObj = (obj) => {
+            if (!Array.isArray(obj) && typeof obj != 'object') return obj;
+            return Object.keys(obj).reduce((acc, key) => {
+              acc[key.trim()] = typeof obj[key] == 'string'? obj[key].trim() : trimObj(obj[key]);
+              return acc;
+            }, Array.isArray(obj)? []:{});
+        }
     
+
         if (fileExtension == "xls" || fileExtension == "xlsx"){
     
             excel2json(table, (data) => {
                 let keys = Object.keys(data);
                 data = data[keys[0]];
+                data = trimObj(data);
+
 
                 let empty = 0;
 
                 for (let prop in data){
                     for(let row in data[prop]){
-                        if(data[prop][row] == ""){
+                        if(data[prop][row] == "" ){
                             empty += 1;
                         }
                     }
@@ -84,9 +113,16 @@ class LoadForm extends React.Component{
                         continue;
                     }
                 }
-                console.log(data)
+                let shortTable = shortKeys(JSON.parse(JSON.stringify(data)))
+                for (let key in shortTable){
+                    if (shortTable[key] === null){
+                        delete shortTable[key];
+                    }
+                }
 
-                this.props.setJsonData(data);
+            
+                this.props.setJsonData([data, shortTable])
+
             });        
             
         }else{

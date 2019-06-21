@@ -10,7 +10,6 @@ class Header extends React.Component{
     onExit = () => {
 
         this.props.showAuthForm();
-        NotificationManager.info('Произведён выход из аккаунта');
     }
 
     render = () => {

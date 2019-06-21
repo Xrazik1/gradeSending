@@ -15,10 +15,11 @@ class Content extends React.Component{
             authFormVisibility: this.props.authFormVisibility,
             gradesTableVisibility: this.props.gradesTableVisibility,
             instructionsVisibility : false,
-            tableJsonData: null,
+            jsonTables: [],
             authError: false
         }
     }
+
 
     onAuthError = () => {
         this.setState({ 
@@ -36,19 +37,20 @@ class Content extends React.Component{
     }
 
     setJsonData = (data) => {
-        this.setState({ tableJsonData: data })
-        console.log(this.state.tableJsonData)
+
+        this.setState({ jsonTables: data })
         this.render()
-        
     }
+
 
     toggleInstructions = () => {
         this.setState({ "instructionsVisibility" : !this.state.instructionsVisibility })
-        console.log(this)
     }
 
-    render = () => { 
 
+
+    render = () => { 
+        
         return (
             <content>
                 <Zoom when={this.props.authFormVisibility} 
@@ -56,7 +58,9 @@ class Content extends React.Component{
                       mountOnEnter = { true }>
                     <HeadShake when={this.state.authError}>
                         <AuthForm showLoadForm = { () => { this.props.showLoadForm() } } 
-                                  onAuthError={ this.onAuthError.bind(this) } ></AuthForm>
+                                  onAuthError={ this.onAuthError.bind(this) } 
+                                  loadingIcon = { this.props.loadingIcon }>
+                        </AuthForm>
                     </HeadShake>
                 </Zoom>
                 <Zoom  
@@ -67,7 +71,9 @@ class Content extends React.Component{
                               gradesTableVisibility={ this.state.gradesTableVisibility } 
                               showGradesTable = { () => this.props.showGradesTable() }
                               setJsonData={ this.setJsonData.bind(this) }
-                              ></LoadForm>
+                              loadingIcon = { this.props.loadingIcon }
+                              >
+                    </LoadForm>
                     <Instruction 
                         toggleInstructions = { this.toggleInstructions } 
                         instructionsVisibility = { this.state.instructionsVisibility }>
@@ -76,7 +82,11 @@ class Content extends React.Component{
                 <Zoom when={this.props.gradesTableVisibility} 
                       unmountOnExit={ true } 
                       mountOnEnter = { true } >
-                    <GradesTable tableJsonData = { this.state.tableJsonData } showLoadForm = { () => { this.props.showLoadForm() } }></GradesTable>
+                    <GradesTable jsonTables = { this.state.jsonTables } 
+                                 showLoadForm = { () => { this.props.showLoadForm() } }
+                                 loadingIcon = { this.props.loadingIcon }>
+
+                    </GradesTable>
                 </Zoom>
             </content>
         )
