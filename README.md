@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Приложение для рассылки по email из файлов Excel
 
 ## Available Scripts
 
